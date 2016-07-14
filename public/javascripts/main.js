@@ -2,7 +2,6 @@ var app = angular.module('app', []);
 app.controller('mainCtrl', function ($http, $scope) {
 	$http.get('http://localhost:3000/tasks')
 		.success(function (result) {
-			console.log('sucess', result);
 			$scope.tasks = result;
 		})
 		.error(function (result) {
@@ -13,7 +12,6 @@ app.controller('mainCtrl', function ($http, $scope) {
 			task.checkboxState = false;
 			$http.post('http://localhost:3000/addTask', task)
 				.success(function (result) {
-					console.log('task posted', result);
 					$scope.tasks.push(task);
 					$scope.task = null;
 				})
@@ -27,7 +25,6 @@ app.controller('mainCtrl', function ($http, $scope) {
 		var itemIndex = $scope.tasks.indexOf(item);
 		$http.post('http://localhost:3000/removeTask', {'itemIndex' : itemIndex})
 			.success(function (result) {
-				console.log('task removed', result);
 				$scope.tasks.splice(itemIndex, 1);
 			})
 			.error(function (result) {
@@ -35,8 +32,6 @@ app.controller('mainCtrl', function ($http, $scope) {
 			})
   	}
   	$scope.changeChecboxState = function (item) {
-  		/*item.checkboxState = !item.checkboxState*/
-  		console.log(item)
   		$http.post('http://localhost:3000/changeChecboxState', item)
 			.success(function (result) {
 				console.log('Checbox chenged', result);
@@ -48,7 +43,6 @@ app.controller('mainCtrl', function ($http, $scope) {
   	$scope.removeChecked = function () {
   		$http.get('http://localhost:3000/removeChecked')
 		.success(function (result) {
-			console.log('checked removed');
 			$scope.tasks = result;
 		})
 		.error(function (result) {
