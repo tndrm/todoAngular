@@ -9,21 +9,21 @@
 </head>
 <body>
 	<h1>todos</h1>
-	<div id = "list">
+	<div id = "list" class="list">
 		<div ng-controller="mainCtrl">
 
 			<form ng-submit="addTask(task)">
-				<input type="text" ng-model='task.name' id="newCase" placeholder="What needs to be done?" >
+				<input type="text" ng-model='task.name' id="newCase" class="newCase" placeholder="What needs to be done?" >
 			</form>
 
-			<div id="tasks">
+			<div id="tasks" class="tasks">
 				<div class="task" ng-repeat='task in tasks | filter:mode'>
 					<label>
-						<input type="checkbox" ng-model='task.checkboxState' ng-change="changeChecboxState(task)">
+						<input type="checkbox" ng-model='task.checkboxState' ng-change="changeChecboxState(task.id)">
 							<span>
 								{{task.name}}
 							</span>
-						<div  id="remove" ng-click="removeTask(task)"></div>
+						<div  id="remove" class="remove"  ng-click="removeTask(task.id)"></div>
 					</label>
 					
 				</div>
