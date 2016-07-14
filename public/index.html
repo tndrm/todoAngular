@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html ng-app='app'>
+<head>
+	<title>Todo list</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+	<link rel="stylesheet" href="stylesheets/style.css">
+	<script src = 'javascripts/main.js'></script> 
+</head>
+<body>
+	<h1>todos</h1>
+	<div id = "list">
+		<div ng-controller="mainCtrl">
+
+			<form ng-submit="addTask(task)">
+				<input type="text" ng-model='task.name' id="newCase" placeholder="What needs to be done?" >
+			</form>
+
+			<div id="tasks">
+				<div class="task" ng-repeat='task in tasks | filter:mode'>
+					<label>
+						<input type="checkbox" ng-model='task.checkboxState' ng-change="changeChecboxState(task)">
+							<span>
+								{{task.name}}
+							</span>
+						<div  id="remove" ng-click="removeTask(task)"></div>
+					</label>
+					
+				</div>
+			</div>
+
+			<div class="mode">
+				<a href="#" ng-click="mode.checkboxState = true">completed</a>
+				<a href="#" ng-click="mode.checkboxState = false">active</a>
+				<a href="#" ng-click="mode.checkboxState = ''">all</a>
+				<a href="#" ng-click="removeChecked()">clear completed</a>
+			</div>
+		</div>	
+	</div>
+</body>
+</html>
