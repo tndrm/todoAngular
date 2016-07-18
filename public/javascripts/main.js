@@ -31,7 +31,31 @@ app.controller('mainCtrl', ['$scope', 'list', function($scope, list) {
   	$scope.mode = {}
 }]);
 	
-app.factory('list', ['$http', function($http){
+app.service('list', ['$http', function($http){
+    this.get = function(callback){
+          $http.get('http://localhost:3000/tasks').success(function(data) {
+          callback(data);
+        });
+    };
+
+    this.addTask = function(task){
+    	return $http.post('http://localhost:3000/addTask', task)
+    };
+
+    this.removeTask = function (id){
+    	return $http.post('http://localhost:3000/removeTask', {'id' : id})
+    };
+
+    this.changeItemState = function (id) {
+  		$http.post('http://localhost:3000/changeItemState', {'id' : id})
+  	};
+  	this.removeChecked = function (callback) {
+  		 $http.get('http://localhost:3000/removeChecked').success(function(data) {
+          callback(data);
+        });
+  	}
+}]);
+/*app.factory('list', ['$http', function($http){
   return {
     get: function(callback){
           $http.get('http://localhost:3000/tasks').success(function(data) {
@@ -57,3 +81,4 @@ app.factory('list', ['$http', function($http){
   	}
   };
 }]);
+*/
