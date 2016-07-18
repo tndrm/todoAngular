@@ -1,50 +1,59 @@
 var app = angular.module('app', []);
-app.controller('mainCtrl', function ($http, $scope) {
-	$http.get('http://localhost:3000/tasks')
-		.success(function (result) {
-			$scope.tasks = result;
+app.controller('mainCtrl', ['$scope', 'list', function($scope, list) {
+
+	list.get(function(data){
+		$scope.tasks = data;
+    });
+
+    $scope.addTask = function (task){
+		list.addTask(task).then(function(data) {
+			$scope.tasks.push(data.data);
+			$scope.task = null;  
 		})
-		.error(function (result) {
-			console.log('error');
+    }
+
+    $scope.removeTask = function (id) {
+    	list.removeTask(id).then(function(data) {
+			$scope.tasks = data.data;
 		})
-	$scope.addTask = function (task) {
-		if(task){
-			$http.post('http://localhost:3000/addTask', task)
-				.success(function (result) {
-					$scope.tasks.push(result);
-					$scope.task = null;
-				})
-				.error(function (result) {
-					console.log('error in post');
-				})
-		}
-	}
-	$scope.removeTask = function (id) {
-		$http.post('http://localhost:3000/removeTask', {'id' : id})
-			.success(function (result) {
-				$scope.tasks = result;
-			})
-			.error(function (result) {
-				console.log('error in post');
-			})
   	}
-  	$scope.changeChecboxState = function (id) {
-  		$http.post('http://localhost:3000/changeItemState', {'id' : id})
-			.success(function (result) {
-				console.log('Checbox chenged', result);
-			})
-			.error(function (result) {
-				console.log('error in changeChecbox');
-			})
+
+  	$scope.changeItemState = function (id) {
+  		list.changeItemState(id)
   	}
+
   	$scope.removeChecked = function () {
-  		$http.get('http://localhost:3000/removeChecked')
-		.success(function (result) {
-			$scope.tasks = result;
-		})
-		.error(function (result) {
-			console.log('removeChecked error');
-		})
-  	}
+		list.removeChecked(function(data){
+			$scope.tasks = data;
+	    });
+	  	}
+
   	$scope.mode = {}
-});
+}]);
+	
+app.factory('list', ['$http', function($http){
+  return {
+    get: function(callback){
+          $http.get('http://localhost:3000/tasks').success(function(data) {
+          callback(data);
+        });
+    }, 
+
+    addTask: function(task){
+    	return $http.post('http://localhost:3000/addTask', task)
+    },
+
+    removeTask: function (id){
+    	return $http.post('http://localhost:3000/removeTask', {'id' : id})
+    },
+
+    changeItemState : function (id) {
+  		$http.post('http://localhost:3000/changeItemState', {'id' : id})
+  	},
+  	removeChecked : function (callback) {
+  		 $http.get('http://localhost:3000/removeChecked').success(function(data) {
+          callback(data);
+        });
+  	}
+  };
+}]);

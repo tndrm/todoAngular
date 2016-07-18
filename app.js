@@ -27,27 +27,34 @@ app.post('/addTask', function (req, res) {
     tasks.push(task);
     res.send(task);
   }else{
-    console.log('error');
+    res.send(console.log('it\'s not a string'));
   }
 })
 
 app.post('/removeTask', function (req, res) {
-  for (var i = tasks.length - 1; i >= 0; i--) {
-    if(tasks[i].id === req.body.id){
-      tasks.splice(i, 1);
-      res.send(tasks);
+  if (typeof req.body.id === 'number') {
+    for (var i = tasks.length - 1; i >= 0; i--) {
+      if(tasks[i].id === req.body.id){
+        tasks.splice(i, 1);
+        res.send(tasks);
+        break
+      }
     }
   }
 })
 
 app.post('/changeItemState', function (req, res) {
-  tasks.forEach(function(item, i, arr) {
-    if(item.id === req.body.id){
-      tasks[i].checkboxState = !tasks[i].checkboxState
-        res.sendStatus(200);
+  if (typeof req.body.id === 'number') {
+     for (var i = tasks.length - 1; i >= 0; i--) {
+      if(tasks[i].id === req.body.id){
+          tasks[i].checkboxState = !tasks[i].checkboxState;
+          res.sendStatus(200);
+          break
+      }
     }
-  })
-
+  }else{
+    res.send(console.log('error'))
+  };
 })
 
 app.get('/removeChecked', function (req, res) {

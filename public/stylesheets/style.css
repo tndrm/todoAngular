@@ -24,7 +24,12 @@ form{
 	background-color: white;
 }
 .newCase{
+	width: 384px;
 	margin: 0 10px;
+}
+.tasks{
+	background-color: #F3F5F4;
+	padding: 7px 10px;
 }
 input{
 	font-size: 24px;
@@ -33,9 +38,9 @@ input{
 	padding: 10px 0;
 }
 label{
-	display: block;
-	padding: 7px 10px;
-	background-color: #F3F5F4;
+	display: inline-block;
+	width: 350px;
+	margin: 3px 0;
 	color:#5D5757;
 }
 input:checked + span{
@@ -49,7 +54,7 @@ input:checked + span{
 	background-size: 28px;
 	background-position: center;
 	float: right;
-	padding: 0;
+	margin: 3px 0;
 	-webkit-box-shadow: none;
 }
 .mode{
