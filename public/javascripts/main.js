@@ -39,8 +39,10 @@ app.service('list', ['$http', function($http){
     };
 
     this.addTask = function(task){
-    	return $http.post('http://localhost:3000/addTask', task)
-    };
+      if (task) {
+        return $http.post('http://localhost:3000/addTask', task)
+      };
+    }
 
     this.removeTask = function (id){
     	return $http.post('http://localhost:3000/removeTask', {'id' : id})

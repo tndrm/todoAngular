@@ -19,7 +19,7 @@
 			<div id="tasks" class="tasks">
 				<div class="task" ng-repeat='task in tasks | filter:mode'>
 					<label>
-						<input type="checkbox" ng-model='task.checkboxState' ng-change="changeItemState(task._id)">
+						<input type="checkbox" ng-model='task.itemState' ng-change="changeItemState(task._id)">
 							<span>
 								{{task.name}}
 							</span>
@@ -30,9 +30,9 @@
 			</div>
 
 			<div class="mode">
-				<a href="#" ng-click="mode.checkboxState = true">completed</a>
-				<a href="#" ng-click="mode.checkboxState = false">active</a>
-				<a href="#" ng-click="mode.checkboxState = ''">all</a>
+				<a href="#" ng-click="mode.itemState = true">completed</a>
+				<a href="#" ng-click="mode.itemState = false">active</a>
+				<a href="#" ng-click="mode.itemState = ''">all</a>
 				<a href="#" ng-click="removeChecked()">clear completed</a>
 			</div>
 		</div>	

@@ -9,7 +9,7 @@ exports.tasks = function(req, res, next) {
 };
 
 exports.addTask = function(req, res, next) {
-  model.create({ name : req.body.name , checkboxState : false}, function(err, doc) {
+  model.create({ name : req.body.name , itemState : false}, function(err, doc) {
     if (err) return next(err);
     res.send(doc);
   });
@@ -27,14 +27,14 @@ exports.removeTask = function(req, res, next) {
 
 exports.changeItemState = function(req, res, next) {
 	model.findOne({_id : req.body.id}, function (err, doc){
-  		doc.checkboxState = !doc.checkboxState;
+  		doc.itemState = !doc.itemState;
   		doc.save();
   		res.sendStatus(200);
 	});
 };
 
 exports.removeChecked = function(req, res, next) {
-	model.remove({checkboxState:true}, function (err, doc) {
+	model.remove({itemState:true}, function (err, doc) {
 		if (err) return next(err);
 		model.find(function(err, docs) {
 			if(err) return next(err);
