@@ -55,30 +55,3 @@ app.service('list', ['$http', function($http){
         });
   	}
 }]);
-/*app.factory('list', ['$http', function($http){
-  return {
-    get: function(callback){
-          $http.get('http://localhost:3000/tasks').success(function(data) {
-          callback(data);
-        });
-    }, 
-
-    addTask: function(task){
-    	return $http.post('http://localhost:3000/addTask', task)
-    },
-
-    removeTask: function (id){
-    	return $http.post('http://localhost:3000/removeTask', {'id' : id})
-    },
-
-    changeItemState : function (id) {
-  		$http.post('http://localhost:3000/changeItemState', {'id' : id})
-  	},
-  	removeChecked : function (callback) {
-  		 $http.get('http://localhost:3000/removeChecked').success(function(data) {
-          callback(data);
-        });
-  	}
-  };
-}]);
-*/
