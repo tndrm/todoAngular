@@ -1,6 +1,5 @@
-function checkUser(argument) {
-	event.preventDefault();
-	console.log($('#login').val())
+$(document).ready(function() {
+	$('form').submit(function(event) {
 	var user = {
 		username : $('#login').val(),
 		password : $('#password').val()
@@ -10,6 +9,7 @@ function checkUser(argument) {
 		url: "/loginUser",
 		method: "POST",
 		data: user,
+		cache: false,
 		statusCode:{
 			200:function () {
 				window.location.href = "/"
@@ -19,4 +19,6 @@ function checkUser(argument) {
 			}
 		}
 	})	
-}
+	event.preventDefault()
+})
+})

@@ -1,3 +1,12 @@
+/*
+for start database:
+C:\Program Files\MongoDB\Server\3.2\bin
+mongod --dbpath d:\DEV\todoAngular\data\
+
+
+mongo
+use todos*/
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
