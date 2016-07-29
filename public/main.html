@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html ng-app='app'>
+<head>
+	<title>Todo list</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+	<link rel="stylesheet" href="stylesheets/style.css">
+	<script src = 'javascripts/main.js'></script> 
+</head>
+<body>
+	<div ng-controller="mainCtrl">
+		<h1>todos</h1>
+		<button name="logout" class="logout" ng-click="logout()">Log out</button> 
+		<div id = "list" class="list">
+			<form ng-submit="addTask(task)" class="todo-form">
+				<input type="text" ng-model='task.name' id="newCase" class="newCase" placeholder="What needs to be done?" >
+			</form>
+
+			<div id="tasks" class="tasks">
+				<div class="task" ng-repeat='task in tasks | filter:mode'>
+					<label>
+						<input type="checkbox" ng-model='task.itemState' ng-change="changeItemState(task.id, task.itemState)">
+							<span>
+								{{task.name}}
+							</span>
+						
+					</label><div  id="remove" class="remove"  ng-click="removeTask(task.id)"></div>
+					
+				</div>
+			</div>
+
+			<div class="mode">
+				<a href="#" ng-click="mode.itemState = true">completed</a>
+				<a href="#" ng-click="mode.itemState = false">active</a>
+				<a href="#" ng-click="mode.itemState = ''">all</a>
+				<a href="#" ng-click="removeChecked()">clear completed</a>
+			</div>
+		</div>	
+	</div>
+</body>
+</html>
