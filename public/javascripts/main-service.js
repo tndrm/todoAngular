@@ -1,6 +1,7 @@
 app.service('list', ['$http', function( $http){
   this.tasks = function(){
     return $http.get('http://localhost:3000/tasks').then(function(tasks) {
+      
     return tasks.data;
     }, function (err) {
       if (err == 401) {
