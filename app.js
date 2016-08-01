@@ -8,6 +8,9 @@ mongo
 use todos*/
 
 var express = require('express');
+const mongoose = require('mongoose');
+var uri = 'mongodb://localhost/todos';
+global.db = mongoose.createConnection(uri);
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -19,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
 
-const mongoose = require('mongoose');
+
 const MongoStore = require('connect-mongo')(session);
 
 app.use(session({
@@ -28,11 +31,12 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
-        url: 'mongodb://localhost/todo',
-        touchAfter: 24 * 3600 // time period in seconds
+        url: 'mongodb://localhost/todos'
     })
 
 }));
+
+
 app.use('/', routes);
 
 var server = app.listen(3000, function () {

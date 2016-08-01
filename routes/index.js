@@ -60,7 +60,6 @@ router.post('/loginUser', function (req, res, next) {
 })
 
 router.get('/tasks', checkAuth, function(req, res, next) {
-	console.log('hey')
 		users.findById(req.session.user, function (err, user){
 			res.send(user.todoList);
 		});
