@@ -16,7 +16,7 @@ var sampleTodo = [
 router.get('/', function (req, res, next) {
 	if (req.session.user) {
 		res.sendFile(path.join(__dirname, '../public', 'main.html'));
-	}else{
+	} else {
 		res.redirect('/login')
 	}
 })
@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 router.get('/login', function (req, res, next) {
 	if (!req.session.user) {
 		res.sendFile(path.join(__dirname, '../public', 'login.html'));
-	}else{
+	} else {
 		res.redirect('/');
 	}
 })
@@ -43,7 +43,7 @@ router.post('/loginUser', function (req, res, next) {
 			if (user.password === req.body.password) {
 				req.session.user = user._id;
 				res.sendStatus(200);
-			}else{
+			} else {
 				res.sendStatus(403);
 			}
 		} else {
@@ -60,6 +60,7 @@ router.post('/loginUser', function (req, res, next) {
 })
 
 router.get('/tasks', checkAuth, function(req, res, next) {
+	console.log('hey')
 		users.findById(req.session.user, function (err, user){
 			res.send(user.todoList);
 		});
@@ -72,8 +73,8 @@ router.post('/addTask', checkAuth, function(req, res, next) {
 		user.todoList.push(task);
 		res.send(task);
 		user.save(function (err) {
-        	if(err) {
-            console.error('ERROR!');
+        	if (err) {
+            	console.error('ERROR!');
         	};
     	});
 	});
@@ -82,15 +83,15 @@ router.post('/addTask', checkAuth, function(req, res, next) {
 router.post('/removeTask', checkAuth, function(req, res, next) {
 	users.findById(req.session.user, function (err, user){
 		for (var i = user.todoList.length - 1; i >= 0; i--) {
-	      	if(user.todoList[i].id === req.body.id){
+	      	if (user.todoList[i].id === req.body.id){
 		        user.todoList.splice(i, 1);
 		        user.save(function (err) {
-		        	if(err) {
+		        	if (err) {
 		            	console.error('ERROR!');
 		        	};
 		    	});
 		        res.send(user.todoList);
-		        break
+		        break;
 	      	};
 	    };
 	});
@@ -100,7 +101,7 @@ router.post('/changeItemState', checkAuth, function(req, res, next) {
 	users.findOneAndUpdate({_id : req.session.user, 'todoList.id' : req.body.id}, 
 	{$set:{'todoList.$.itemState' : req.body.itemState}}, {new: true},
 	function(err, doc){
-		if(err){
+		if (err){
 		    console.log("Something wrong when updating data!");
 		};
 		res.sendStatus(200);
@@ -112,7 +113,7 @@ router.get('/removeChecked', checkAuth, function(req, res, next) {
 		{$pull: {todoList: {itemState : true}}},
 		{new: true},
 		function(err, doc){
-		    if(err){
+		    if (err){
 		        console.log(err);
 		    }
 		    res.send(doc.todoList);
