@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var db = mongoose.createConnection('mongodb://localhost/todo');
 
 Schema = mongoose.Schema;
 var schema = mongoose.Schema({
